@@ -1,0 +1,3 @@
+package: github.com/masa0x80/secman
+import:
+- package: github.com/mitchellh/cli
