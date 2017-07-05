@@ -27,6 +27,12 @@ $ secman delete [<fileName>...]
 $ secman list [<dirName>]
 ```
 
+### Sync files
+
+```bash
+$ secman sync [<dirName>]
+```
+
 ### Help
 
 ```bash
