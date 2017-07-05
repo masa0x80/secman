@@ -14,6 +14,7 @@ type ListCommand struct{}
 // The args are the arguments after the command name.
 func (c *ListCommand) Run(args []string) int {
 	var dirName string
+
 	if len(args) > 0 {
 		dirName = args[0]
 	} else {
@@ -24,6 +25,7 @@ func (c *ListCommand) Run(args []string) int {
 		fmt.Fprintf(os.Stderr, "ERROR: Invalid argument\n")
 		return 1
 	}
+
 	secretsRoot, err := secretsRoot()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
