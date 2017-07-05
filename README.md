@@ -9,19 +9,25 @@ You can manage secret files such as included `.gitignore` by using this tool.
 
 ## Usage
 
-### Add file
+### Add files
 
 ```bash
-$ secman add <filenames>
+$ secman add [<fileName>...]
 ```
 
-### Delete file
+### Delete files
 
 ```bash
-$ secman delete <filename>
+$ secman delete [<fileName>...]
 ```
 
-### help
+### List files
+
+```bash
+$ secman list [<dirName>]
+```
+
+### Help
 
 ```bash
 $ secman help

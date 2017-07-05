@@ -54,7 +54,7 @@ NAME:
 		secman add - Add symlinks
 
 USAGE:
-		secman add <files>
+		secman add [<fileName>...]
 
 DESCRIPTION:
 		Put target files under secman control.

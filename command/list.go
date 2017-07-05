@@ -50,7 +50,7 @@ NAME:
 		secman list - list secret files
 
 USAGE:
-		secman list
+		secman list [<dirName>]
 
 DESCRIPTION:
 		List secret files under secman control.

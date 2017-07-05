@@ -54,7 +54,7 @@ NAME:
 		secman delete - Delete symlinks
 
 USAGE:
-		secman delete <files>
+		secman delete [<fileName>...]
 
 DESCRIPTION:
 		Make target files out of secman control.
