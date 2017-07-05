@@ -3,7 +3,6 @@ package command
 import (
 	"fmt"
 	"os"
-	"os/user"
 	"path/filepath"
 	"strings"
 )
@@ -14,17 +13,15 @@ type DeleteCommand struct{}
 // Run runs the command.
 // The args are the arguments after the command name.
 func (c *DeleteCommand) Run(args []string) int {
-	u, err := user.Current()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "  ERROR: Failed to execute: %s\n", err.Error())
-	}
-	homeDir := u.HomeDir
-	secretsRoot := filepath.Join(homeDir, ".secrets")
-
 	for _, filename := range args {
 		localPath, _ := filepath.Abs(filename)
 		if !isSymlink(localPath) {
 			fmt.Fprintf(os.Stderr, "SKIP: %s\n", localPath)
+			continue
+		}
+		secretsRoot, err := secretsRoot()
+		if err != nil {
+			fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
 			continue
 		}
 		remotePath := filepath.Join(secretsRoot, localPath)

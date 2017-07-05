@@ -1,6 +1,10 @@
 package command
 
-import "os"
+import (
+	"os"
+	"os/user"
+	"path/filepath"
+)
 
 func isFile(file string) bool {
 	fi, err := os.Lstat(file)
@@ -17,4 +21,13 @@ func isSymlink(file string) bool {
 		return false
 	}
 	return fi.Mode()&os.ModeSymlink != 0
+}
+
+func secretsRoot() (string, error) {
+	u, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	homeDir := u.HomeDir
+	return filepath.Join(homeDir, ".secrets"), nil
 }
