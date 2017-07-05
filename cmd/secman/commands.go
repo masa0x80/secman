@@ -16,6 +16,9 @@ func Commands() map[string]cli.CommandFactory {
 		"list": func() (cli.Command, error) {
 			return &command.ListCommand{}, nil
 		},
+		"sync": func() (cli.Command, error) {
+			return &command.SyncCommand{}, nil
+		},
 
 		"version": func() (cli.Command, error) {
 			return &command.VersionCommand{
