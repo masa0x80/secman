@@ -13,6 +13,9 @@ func Commands() map[string]cli.CommandFactory {
 		"delete": func() (cli.Command, error) {
 			return &command.DeleteCommand{}, nil
 		},
+		"list": func() (cli.Command, error) {
+			return &command.ListCommand{}, nil
+		},
 
 		"version": func() (cli.Command, error) {
 			return &command.VersionCommand{
