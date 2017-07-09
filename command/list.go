@@ -22,19 +22,17 @@ func (c *ListCommand) Run(args []string) int {
 	}
 	dirPath, _ := filepath.Abs(dirName)
 	if !isDir(dirPath) {
-		fmt.Fprintf(os.Stderr, "ERROR: Invalid argument\n")
-		return 1
+		Log("Error", "Invalid argument")
+		os.Exit(1)
 	}
 
 	secretsRoot, err := secretsRoot()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
-		return 1
-	}
+	DieIf(err)
+
 	remoteDir := filepath.Join(secretsRoot, dirPath)
 	for _, path := range traverseFiles(remoteDir) {
 		relPath, _ := filepath.Rel(remoteDir, path)
-		fmt.Fprintf(os.Stdout, "%s\n", relPath)
+		fmt.Println(relPath)
 	}
 
 	return 0
@@ -45,11 +43,11 @@ func (c *ListCommand) Synopsis() string {
 	return "List secret files"
 }
 
-// Help is the long description shown in the 'secman help version' output.
+// Help is the long description shown in the 'secman help list' output.
 func (c *ListCommand) Help() string {
 	helpText := `
 NAME:
-		secman list - list secret files
+		secman list - List secret files
 
 USAGE:
 		secman list [<dirName>]

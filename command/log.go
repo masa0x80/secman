@@ -9,7 +9,7 @@ import (
 var logger = colorine.NewLogger(
 	colorine.Prefixes{
 		"Create":  colorine.Notice,
-		"Delete":  colorine.Notice,
+		"Restore": colorine.Notice,
 		"Symlink": colorine.Notice,
 		"Exist":   colorine.Warn,
 
