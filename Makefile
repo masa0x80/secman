@@ -1,15 +1,13 @@
 NAME := secman
 REVISION := $(shell git rev-parse --short HEAD)
 VERSION = $(shell grep 'Version string =' $</version.go | sed -E 's/.*"(.+)"$$/\1/')
-LDFLAGS = -X 'main.version=$(VERSION)' \
-					-X 'main.revision=$(REVISION)'
+LDFLAGS = -X 'main.Version=$(VERSION)' \
+					-X 'main.Revision=$(REVISION)'
 
 setup:
 	go get github.com/Masterminds/glide
 	go get golang.org/x/tools/cmd/goimports
 	go get github.com/golang/lint/golint
-	go get github.com/mitchellh/cli
-	go get github.com/motemen/go-colorine
 
 test: deps
 	go test $$(glide novendor)

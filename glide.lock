@@ -1,14 +1,18 @@
 hash: 35402f09b2f659056eec84ea445bba058743cc95f7b43e55549ea4e359d5d1cb
-updated: 2017-07-05T01:44:04.922260082+09:00
+updated: 2017-07-10T23:14:20.394760043+09:00
 imports:
 - name: github.com/armon/go-radix
   version: 4239b77079c7b5d1243b7b4736304ce8ddb6f0f2
 - name: github.com/bgentry/speakeasy
   version: 4aabc24848ce5fd31929f7d1e4ea74d3709c14cd
+- name: github.com/daviddengcn/go-colortext
+  version: 805cee6e0d43c72ba1d4e3275965ff41e0da068a
 - name: github.com/mattn/go-isatty
   version: fc9e8d8ef48496124e79ae0df75490096eccf6fe
 - name: github.com/mitchellh/cli
   version: b481eac70eea3ad671b7c360a013f89bb759b252
+- name: github.com/motemen/go-colorine
+  version: 49ff36b8fa42db28092361cd20dcefd0b03b1472
 - name: golang.org/x/sys
   version: d18155cb60f6162f5e706d7f26e4e50a3d4da857
   subpackages:

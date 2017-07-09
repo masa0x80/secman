@@ -31,7 +31,9 @@ func RunCustom(args []string, commands map[string]cli.CommandFactory) int {
 	}
 
 	exitCode, err := cli.Run()
-	ErrorIf(err)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
+	}
 
 	return exitCode
 }
