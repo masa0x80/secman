@@ -6,8 +6,10 @@ LDFLAGS = -X 'main.version=$(VERSION)' \
 
 setup:
 	go get github.com/Masterminds/glide
-	go get github.com/golang/lint/golint
 	go get golang.org/x/tools/cmd/goimports
+	go get github.com/golang/lint/golint
+	go get github.com/mitchellh/cli
+	go get github.com/motemen/go-colorine
 
 test: deps
 	go test $$(glide novendor)
