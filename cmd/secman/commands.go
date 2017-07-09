@@ -7,11 +7,11 @@ import (
 
 func Commands() map[string]cli.CommandFactory {
 	return map[string]cli.CommandFactory{
-		"add": func() (cli.Command, error) {
-			return &command.AddCommand{}, nil
+		"save": func() (cli.Command, error) {
+			return &command.SaveCommand{}, nil
 		},
-		"delete": func() (cli.Command, error) {
-			return &command.DeleteCommand{}, nil
+		"restore": func() (cli.Command, error) {
+			return &command.RestoreCommand{}, nil
 		},
 		"list": func() (cli.Command, error) {
 			return &command.ListCommand{}, nil

@@ -1,7 +1,6 @@
 package command
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -24,38 +23,31 @@ func (c *SyncCommand) Run(args []string) int {
 	}
 	dirPath, _ := filepath.Abs(dirName)
 	if !isDir(dirPath) {
-		fmt.Fprintf(os.Stderr, "ERROR: Invalid argument\n")
-		return 1
+		Log("Error", "Invalid argument")
+		os.Exit(1)
 	}
 
 	secretsRoot, err := secretsRoot()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
-		return 1
-	}
+	DieIf(err)
 
 	remoteDir := filepath.Join(secretsRoot, dirPath)
 	for _, path := range traverseFiles(remoteDir) {
 		relPath, _ := filepath.Rel(remoteDir, path)
 		localPath := filepath.Join(dirPath, relPath)
-		fmt.Println(localPath)
 
 		// Create backup if `relPath` exists
 		if _, err := os.Stat(relPath); !os.IsNotExist(err) {
 			unixTime := strconv.FormatInt(time.Now().Unix(), 10)
 			newPath := localPath + "." + unixTime
-			if err := os.Rename(localPath, newPath); err != nil {
-				fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
-			} else {
-				fmt.Fprintf(os.Stdout, "INFO: Create backup { %s => %s }\n", relPath, newPath)
+			if err := os.Rename(localPath, newPath); !ErrorIf(err) {
+				Log("Create", newPath)
 			}
 		}
 
 		remotePath := filepath.Join(secretsRoot, filepath.Join(dirPath, localPath))
-		if err := os.Symlink(remotePath, localPath); err != nil {
-			fmt.Fprintf(os.Stderr, "ERROR: Failed to execute: %s\n", err.Error())
-		} else {
-			fmt.Fprintf(os.Stdout, "INFO: Symlink { %s => %s }\n", localPath, remotePath)
+		if !isSymlink(localPath) && !ErrorIf(os.Symlink(remotePath, localPath)) {
+			outputPath, _ := filepath.Rel(dirPath, localPath)
+			Log("Symlink", outputPath)
 		}
 	}
 
@@ -67,11 +59,11 @@ func (c *SyncCommand) Synopsis() string {
 	return "Syncronize secret files recursively"
 }
 
-// Help is the long description shown in the 'secman help version' output.
+// Help is the long description shown in the 'secman help sync' output.
 func (c *SyncCommand) Help() string {
 	helpText := `
 NAME:
-		secman sync - syncronize secret files recursively
+		secman sync - Syncronize secret files recursively
 
 USAGE:
 		secman sync [<dirName>]
